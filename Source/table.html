@@ -1,33 +1,52 @@
-<div class='container'> 
-<h1>Opdracht 2 Robbe Croes</h1>
-<form action="" method="POST">
+<!DOCTYPE html>
+<html lang="en">
+
+<head >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <form action="" method="POST" onsubmit="
+    document.getElementById('data3').value = new Date().toLocaleString();">
         <input type="text" id="data" name="data">
         <input type="text" id="data2" name="data2">
-        <input type="text" id="data3" name="data3">
+        <input type="hidden" id="data3" name="data3">
         <input type="submit" value="submit">
-</form>
+    </form>
 
-<table class='table' id='table'>
-    <thead class='thead-dark'>
-        <tr><th>name</th><th>name</th><th>time</th></tr>
-    </thead>
-    <tr id='row'></tr>
-</table>
-<script>
-    fetch('/data.json')
-        .then(res => res.json())
-        .then(data => {
-            const row = document.getElementById('row');
-            data.forEach(el => {
-                console.log(el)
-                row.insertAdjacentHTML('beforebegin',
-                    `<tr>
-                        <td>${el.data}</td>
-                        <td>${el.data2}</td>
-                        <td>${el.data3}</td>
+    <table class='table' id='table'>
+        <thead class='thead-dark'>
+            <tr>
+                <th>Voornaam</th>
+                <th>Klas</th>
+                <th>time</th>
+            </tr>
+        </thead>
+        <tr id='row'></tr>
+    </table>
+    <script>
+        fetch('/data.json')
+            .then(res => res.json())
+            .then(data => {
+                const row = document.getElementById('row');
+                data.forEach(el => {
+                    console.log(el)
+                    data = JSON.stringify(el.data).replace("+", " ").replace(/"/g, "");
+                    data2 = JSON.stringify(el.data2).replace("+", " ").replace(/"/g, "");
+                    data3 = JSON.stringify(el.data3).replace("+", " ").replace(/%3A/g, ":").replace(/"/g, "");
+                    row.insertAdjacentHTML('beforebegin',
+                        `<tr>
+                        <td>${data}</td>
+                        <td>${data2}</td>
+                        <td>${data3}</td>
                     </tr>`);
-            })
-            row.remove()
-        }) 
-</script>
-</div>
+                })
+                row.remove()
+            }) 
+    </script>
+    </div>
+</body>
+
+
+</html>
