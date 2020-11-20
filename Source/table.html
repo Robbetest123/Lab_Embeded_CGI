@@ -1,0 +1,33 @@
+<div class='container'> 
+<h1>Opdracht 2 Robbe Croes</h1>
+<form action="" method="POST">
+        <input type="text" id="data" name="data">
+        <input type="text" id="data2" name="data2">
+        <input type="text" id="data3" name="data3">
+        <input type="submit" value="submit">
+</form>
+
+<table class='table' id='table'>
+    <thead class='thead-dark'>
+        <tr><th>name</th><th>name</th><th>time</th></tr>
+    </thead>
+    <tr id='row'></tr>
+</table>
+<script>
+    fetch('/data.json')
+        .then(res => res.json())
+        .then(data => {
+            const row = document.getElementById('row');
+            data.forEach(el => {
+                console.log(el)
+                row.insertAdjacentHTML('beforebegin',
+                    `<tr>
+                        <td>${el.data}</td>
+                        <td>${el.data2}</td>
+                        <td>${el.data3}</td>
+                    </tr>`);
+            })
+            row.remove()
+        }) 
+</script>
+</div>
